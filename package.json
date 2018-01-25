@@ -1,0 +1,17 @@
+{
+  "name": "vue-i18n",
+  "version": "0.0.1",
+  "description": "vue-i18n",
+  "main": "src/i18n.js",
+  "keywords": [
+    "i18n",
+    "vue"
+  ],
+  "scripts": {},
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "author": "JanathonJiang <qinghuangniao@gmail.com>",
+  "license": "MIT",
+  "repository": "https://github.com/janostudio/vue-i18n.git"
+}

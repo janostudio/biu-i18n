@@ -1,5 +1,5 @@
 {
-  "name": "vue-i18n",
+  "name": "bue-i18n",
   "version": "0.0.1",
   "description": "vue-i18n",
   "main": "src/i18n.js",
@@ -9,9 +9,14 @@
   ],
   "scripts": {},
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=8.0.0",
+    "npm": ">=5.0.0"
   },
   "author": "JanathonJiang <qinghuangniao@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/janostudio/vue-i18n.git"
+  "repository": "https://github.com/janostudio/bue-i18n.git",
+  "bugs": {
+    "url": "https://github.com/janostudio/bue-i18n/issues"
+  },
+  "homepage": "https://github.com/janostudio/bue-i18n"
 }

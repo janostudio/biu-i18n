@@ -5,7 +5,9 @@ The simplest I18n plugin for vue.
 
 ## Usage
 ```js
-import i18n from 'i18n'
+npm install bue-i18n --save
+
+import i18n from 'bue-i18n'
 
 Vue.use(i18n, {langs: {}})
 ```

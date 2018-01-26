@@ -3,7 +3,7 @@
 var webpackConfig = require('./build/webpack.test.conf')
 
 module.exports = function(config) {
-  config.set({
+  var configuration = {
     basePath: '',
     frameworks: ['jasmine'],
     files: [
@@ -28,9 +28,7 @@ module.exports = function(config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    concurrency: Infinity
-  });
-  var configuration = {
+    concurrency: Infinity,
     customLaunchers: {
       Chrome_travis_ci: {
         base: 'Chrome',

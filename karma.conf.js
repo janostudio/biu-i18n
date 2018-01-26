@@ -19,8 +19,14 @@ module.exports = function(config) {
     },
     reporters: ['progress', 'coverage'],
     coverageReporter: {
-      type: 'html',
-      dir: 'coverage/'
+      reporters: [{
+        type: 'html',
+        dir: 'coverage/'
+      }, {
+        type: 'cobertura',
+        subdir: '.',
+        dir: 'coverage/'
+      }]
     },
     port: 9876,
     colors: true,

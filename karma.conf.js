@@ -1,0 +1,33 @@
+// Karma configuration
+// Generated on Fri Jan 26 2018 09:17:53 GMT+0800 (CST)
+var webpackConfig = require('./build/webpack.test.conf')
+
+module.exports = function(config) {
+  config.set({
+    basePath: '',
+    frameworks: ['jasmine'],
+    files: [
+      'test/*.js'
+    ],
+    exclude: [],
+    preprocessors: {
+      'test/*.js': ['webpack', 'sourcemap', 'coverage']
+    },
+    webpack: webpackConfig,
+    webpackMiddleware: {
+        noInfo: true
+    },
+    reporters: ['progress', 'coverage'],
+    coverageReporter: {
+      type: 'html',
+      dir: 'coverage/'
+    },
+    port: 9876,
+    colors: true,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
+    browsers: ['Chrome'],
+    singleRun: false,
+    concurrency: Infinity
+  })
+}

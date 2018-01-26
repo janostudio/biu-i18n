@@ -3,11 +3,44 @@
 The simplest I18n plugin for vue.
 
 
-## Usage
+## Installation
+
 ```js
 npm install bue-i18n --save
 
 import i18n from 'bue-i18n'
 
-Vue.use(i18n, {langs: {}})
+// Ready translated locale messages
+const message = {
+  langs: {
+    first: 'first',
+    second: 'second',
+    third: 'third',
+    withParams: '{:param}with'
+  }
+}
+
+Vue.use(i18n, message)
+
+// OR
+
+// Create VueI18n instance with options
+const i18n = new VueI18n({
+  locale: 'ja', // set locale
+  messages, // set locale messages
+})
+
+new Vue({ i18n }).$mount('#app')
 ```
+
+## Usage
+
+```html
+
+<p>{{$i18n('first')}}</p>
+<p>{{$i18n(['first', 'second])}}</p>
+<p>{{$i18n({content: 'withParams', params: ['second']})}}</p>
+
+```
+
+

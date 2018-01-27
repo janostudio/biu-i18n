@@ -8,7 +8,10 @@ module.exports = {
     filename: "bue-i18n.js"
   },
   resolve: {
-    extensions: ['.js']
+    alias: {
+      'vue': 'vue/dist/vue.js'
+    },
+    extensions: ['.js', '.vue']
   },
   module: {
     rules: [
@@ -16,6 +19,10 @@ module.exports = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [path.join(__dirname, '..', 'src'), path.join(__dirname, '..', 'src')]
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
       }
     ]
   }

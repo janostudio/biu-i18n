@@ -10,7 +10,7 @@
   "scripts": {
     "dev": "webpack --progress --config ./build/webpack.dev.conf.js",
     "build": "webpack --progress --config ./build/webpack.prod.conf.js",
-    "test": "karma start --single-run",
+    "test": "karma start",
     "ci": "karma start --single-run && codecov coverage/cobertura-coverage.xml"
   },
   "engines": {
@@ -37,6 +37,9 @@
     "karma-jasmine": "^1.1.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.9",
+    "vue": "^2.5.13",
+    "vue-loader": "^13.7.0",
+    "vue-template-compiler": "^2.5.13",
     "webpack": "^3.10.0"
   },
   "dependencies": {}

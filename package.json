@@ -1,8 +1,8 @@
 {
-  "name": "bue-i18n",
+  "name": "biu-i18n",
   "version": "0.0.1",
-  "description": "bue-i18n",
-  "main": "dist/bue-i18n.min.js",
+  "description": "biu-i18n",
+  "main": "dist/biu-i18n.min.js",
   "keywords": [
     "i18n",
     "vue"
@@ -19,11 +19,11 @@
   },
   "author": "JanathonJiang <qinghuangniao@gmail.com>",
   "license": "MIT",
-  "repository": "https://github.com/janostudio/bue-i18n.git",
+  "repository": "https://github.com/janostudio/biu-i18n.git",
   "bugs": {
-    "url": "https://github.com/janostudio/bue-i18n/issues"
+    "url": "https://github.com/janostudio/biu-i18n/issues"
   },
-  "homepage": "https://github.com/janostudio/bue-i18n",
+  "homepage": "https://github.com/janostudio/biu-i18n",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

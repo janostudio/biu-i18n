@@ -26,7 +26,7 @@ function vmFactory (elId) {
   })
 }
 
-describe("bue-i18n", () => {
+describe("biu-i18n", () => {
   Vue.use(bueI18n, {langs})
   it("hello world", () => {
     var MyComponent = vmFactory('app')

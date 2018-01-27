@@ -8,8 +8,7 @@
     "vue"
   ],
   "scripts": {
-    "dev": "webpack --progress --config ./build/webpack.dev.conf.js",
-    "build": "webpack --progress --config ./build/webpack.prod.conf.js",
+    "build": "webpack --config ./build/webpack.dev.conf.js && webpack --config ./build/webpack.prod.conf.js",
     "test": "karma start",
     "ci": "karma start --single-run && npm install codecov -D && codecov coverage/cobertura-coverage.xml"
   },

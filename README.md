@@ -12,12 +12,14 @@ import i18n from 'biu-i18n'
 
 // Ready translated locale messages
 const message = {
-  langs: {
+  'cn-ZH': {
     first: 'first',
     second: 'second',
     third: 'third',
-    withParams: '{:param}with'
-  }
+    withParams: '{:param} with'
+  },
+  pattern: '{:param}',
+  locale: 'cn-ZH'
 }
 
 Vue.use(i18n, message)
@@ -25,21 +27,21 @@ Vue.use(i18n, message)
 // OR
 
 // Create VueI18n instance with options
-const i18n = new VueI18n({
-  locale: 'ja', // set locale
-  messages, // set locale messages
-})
+// const i18n = new VueI18n({
+//   locale: 'ja', // set locale
+//   messages, // set locale messages
+// })
 
-new Vue({ i18n }).$mount('#app')
+// new Vue({ i18n }).$mount('#app')
 ```
 
 ## Usage
 
-```html
+```js
+this.$i18n(toBeTranslateKey: any, isObject: boolean)
 
-<p>{{$i18n('first')}}</p>
-<p>{{$i18n(['first', 'second])}}</p>
-<p>{{$i18n({content: 'withParams', params: ['second']})}}</p>
-
+this.$i18n('first')
+this.$i18n(['first', 'second'])
+this.$i18n({content: 'withParams', params: ['second']})
 ```
 

@@ -73,18 +73,62 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _utils = __webpack_require__(1);
-
 exports.default = {
   install: function install(Vue, options) {
     var version = Number(Vue.version.split('.')[0]);
     if (version < 2) {
       throw new Error('vue-iframe-box supports vue version 2.0 and above. You are using Vue@' + version + '. Please upgrade to the latest version of Vue.');
     }
-    window.langs = options.langs;
+    var langsSet = {};
+    var locale = '';
+    var pattern = '';
+    var comma = '';
+
+    function setLangs(options) {
+      locale = options.locale ? options.locale : 'cn-ZH';
+      comma = locale === 'cn-ZH' ? '，' : ',';
+      var langs = options[locale] ? options[locale] : {};
+      pattern = options.pattern ? options.pattern : '{:param}';
+      langsSet[locale] = langs;
+    }
+
+    function langsObjectTransfer(val, langs) {
+      var Msg = '';
+      var originLangs = Object.prototype.toString.call(val) === '[object Array]' ? val : [val];
+
+      var _loop = function _loop(i) {
+        var num = 0;
+        var langMsg = '';
+        if (originLangs[i].hasOwnProperty('content')) {
+          langMsg = langs[originLangs[i].content] ? langs[originLangs[i].content] : originLangs[i].content;
+          langMsg = langMsg.replace(new RegExp(pattern, 'g'), function () {
+            num++;
+            var lang = '';
+            if (originLangs[i].params[num - 1]) {
+              lang = langs[originLangs[i].params[num - 1]] ? langs[originLangs[i].params[num - 1]] : originLangs[i].params[num - 1];
+            } else {
+              lang = 'NONE';
+              console.warn('The amount of pattern in content is more than params\'s length.');
+            }
+            return lang;
+          });
+        } else {
+          console.warn('The subject content-key of translation is content, and params-key is params, as {content: "content", params: ["param1"]}');
+        }
+        Msg += i !== originLangs.length - 1 ? langMsg + comma : langMsg;
+      };
+
+      for (var i = 0; i < originLangs.length; i++) {
+        _loop(i);
+      }
+      return Msg;
+    }
+    setLangs(options);
+    Vue.prototype.$resetLangs = function (options) {
+      setLangs(options);
+    };
     Vue.prototype.$i18n = function (langsKey, isMessage) {
-      var langs = options.langs;
+      var langs = langsSet[locale];
       var results = '';
       var langsKeyType = isMessage ? '[object Object]' : Object.prototype.toString.call(langsKey);
       switch (langsKeyType) {
@@ -97,7 +141,7 @@ exports.default = {
           }
           break;
         case '[object Object]':
-          results = (0, _utils.langsObjectTransfer)(langsKey, langs);
+          results = langsObjectTransfer(langsKey, langs);
           break;
         default:
           results = langsKey;
@@ -105,41 +149,6 @@ exports.default = {
       return results;
     };
   }
-};
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var langsObjectTransfer = exports.langsObjectTransfer = function langsObjectTransfer(val, langs) {
-  var Msg = '';
-  var originLangs = Object.prototype.toString.call(val) === '[object Array]' ? val : [val];
-
-  var _loop = function _loop(i) {
-    var num = 0;
-    var langMsg = '';
-    if (originLangs[i].hasOwnProperty('content')) {
-      langMsg = langs[originLangs[i].content] ? langs[originLangs[i].content] : originLangs[i].content;
-      langMsg = langMsg.replace(/{:param}/g, function () {
-        num++;
-        var lang = '';
-        if (originLangs[i].params[num - 1]) lang = langs[originLangs[i].params[num - 1]] ? langs[originLangs[i].params[num - 1]] : originLangs[i].params[num - 1];
-        return lang;
-      });
-    }
-    Msg += i !== originLangs.length - 1 ? langMsg + '，' : langMsg;
-  };
-
-  for (var i = 0; i < originLangs.length; i++) {
-    _loop(i);
-  }
-  return Msg;
 };
 
 /***/ })

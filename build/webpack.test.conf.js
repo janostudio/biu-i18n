@@ -2,11 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: "./src/i18n", 
-  output: {
-    path: path.resolve(__dirname, "../dist"), 
-    filename: "bue-i18n.js"
-  },
+  devtool: 'inline-source-map',
   resolve: {
     alias: {
       'vue': 'vue/dist/vue.js'
@@ -17,8 +13,22 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
-        include: [path.join(__dirname, '..', 'src'), path.join(__dirname, '..', 'src')]
+        use: {
+          loader: 'istanbul-instrumenter-loader',
+          options: {esModules: true}
+        },
+        enforce: 'pre',
+        exclude: /node_modules|test/
+      },
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            plugins: ['istanbul']
+          }
+        },
+        exclude: /node_modules/
       },
       {
         test: /\.vue$/,

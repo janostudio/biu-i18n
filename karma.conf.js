@@ -11,22 +11,32 @@ module.exports = function(config) {
     ],
     exclude: [],
     preprocessors: {
-      'test/*.js': ['webpack', 'sourcemap', 'coverage']
+      'test/*.js': ['webpack', 'sourcemap']
     },
     webpack: webpackConfig,
     webpackMiddleware: {
         noInfo: true
     },
-    reporters: ['progress', 'coverage'],
-    coverageReporter: {
-      reporters: [{
-        type: 'html',
-        dir: 'coverage/'
-      }, {
-        type: 'cobertura',
-        subdir: '.',
-        dir: 'coverage/'
-      }]
+    plugins: [
+      'karma-chrome-launcher',
+      'karma-jasmine',
+      'karma-webpack',
+      'karma-sourcemap-loader',
+      'karma-coverage-istanbul-reporter'
+    ],
+    reporters: ['coverage-istanbul'],
+    coverageIstanbulReporter: {
+      reports: ['html', 'cobertura', 'text-summary'],
+      dir: 'coverage/',
+      // 如果使用webpack和预加载器，可以绕过webpack打破源路径
+      fixWebpackSourcePaths: true,
+      // 停止输出消息，如`File [$ {filename}]忽略，没有任何东西可以映射
+      skipFilesWithNoCoverage: true,
+      'report-config': {
+        html: {
+          subdir: 'html'
+        }
+      }
     },
     port: 9876,
     colors: true,

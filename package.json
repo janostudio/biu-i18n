@@ -11,7 +11,7 @@
     "dev": "webpack --progress --config ./build/webpack.dev.conf.js",
     "build": "webpack --progress --config ./build/webpack.prod.conf.js",
     "test": "karma start",
-    "ci": "karma start --single-run && codecov coverage/cobertura-coverage.xml"
+    "ci": "karma start --single-run && npm install codecov -D && codecov coverage/cobertura-coverage.xml"
   },
   "engines": {
     "node": ">=8.0.0",

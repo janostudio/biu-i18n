@@ -1,6 +1,6 @@
 {
   "name": "biu-i18n",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "biu-i18n",
   "main": "dist/biu-i18n.min.js",
   "keywords": [

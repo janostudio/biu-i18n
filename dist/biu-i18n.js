@@ -85,11 +85,11 @@ exports.default = {
     var comma = '';
 
     function setLangs(options) {
-      locale = options.locale ? options.locale : 'cn-ZH';
+      locale = options.locale || 'cn-ZH';
       comma = locale === 'cn-ZH' ? '，' : ',';
-      var langs = options[locale] ? options[locale] : {};
-      pattern = options.pattern ? options.pattern : '{:param}';
-      langsSet[locale] = langs;
+      pattern = options.pattern || '{:param}';
+      langsSet[locale] = options[locale] || langsSet[locale] || {};
+      return langsSet[locale];
     }
 
     function langsObjectTransfer(val, langs) {
@@ -123,11 +123,15 @@ exports.default = {
       }
       return Msg;
     }
+    function updateVm() {
+      if (window.vm) {
+        window.vm.$forceUpdate();
+      } else {
+        console.log("window.vm is not found, please bind new Vue() to window.vm or update view with 'this.$forceUpdate'.");
+      }
+    }
     setLangs(options);
-    Vue.prototype.$resetLangs = function (options) {
-      setLangs(options);
-    };
-    Vue.prototype.$i18n = function (langsKey, isMessage) {
+    var i18nPlugin = function i18nPlugin(langsKey, isMessage) {
       var langs = langsSet[locale];
       var results = '';
       var langsKeyType = isMessage ? '[object Object]' : Object.prototype.toString.call(langsKey);
@@ -148,6 +152,25 @@ exports.default = {
       }
       return results;
     };
+    i18nPlugin.setLangs = function (options) {
+      this.db = setLangs(options);
+
+      updateVm();
+      return locale;
+    };
+    i18nPlugin.hasLangs = function (localeName) {
+      return Object.keys(langsSet[localeName]).length > 0;
+    };
+    i18nPlugin.clearLangs = function (key) {
+      key instanceof Array || (key = [key]);
+      key.map(function (item) {
+        delete langsSet[item];
+      });
+      this.setLangs({ locale: locale });
+      return true;
+    };
+    i18nPlugin.db = langsSet[locale];
+    Vue.prototype.$i18n = i18nPlugin;
   }
 };
 

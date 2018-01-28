@@ -10,11 +10,11 @@ export default{
     let comma = ''
     // set new langs & locale   
     function setLangs (options) {
-      locale = options.locale ? options.locale : 'cn-ZH'
+      locale = options.locale || 'cn-ZH'
       comma = locale === 'cn-ZH' ? '，' : ','
-      const langs = options[locale] ? options[locale] : {}      
-      pattern = options.pattern ? options.pattern : '{:param}'
-      langsSet[locale] = langs
+      pattern = options.pattern || '{:param}'
+      langsSet[locale] = options[locale] || langsSet[locale] || {}
+      return langsSet[locale]
     }
     // translate [{content: 'content', params: ['param1', 'param2']}]
     function langsObjectTransfer (val, langs) {
@@ -43,12 +43,15 @@ export default{
       }
       return Msg
     }
-    setLangs(options)
-    Vue.prototype.$resetLangs = function (options) {
-      setLangs(options)
-      // refresh vm
+    function updateVm () {
+      if (window.vm) {
+        window.vm.$forceUpdate()
+      } else {
+        console.log("window.vm is not found, please bind new Vue() to window.vm or update view with 'this.$forceUpdate'.")
+      }
     }
-    Vue.prototype.$i18n = function (langsKey, isMessage) {
+    setLangs(options)
+    const i18nPlugin = function (langsKey, isMessage) {
       const langs = langsSet[locale]
       let results = ''
       const langsKeyType = isMessage ? '[object Object]' : Object.prototype.toString.call(langsKey)
@@ -69,6 +72,25 @@ export default{
       }
       return results
     }
+    i18nPlugin.setLangs = function (options) {
+      this.db = setLangs(options)
+      // refresh vm
+      updateVm()
+      return locale
+    }
+    i18nPlugin.hasLangs = function (localeName) {
+      return Object.keys(langsSet[localeName]).length > 0
+    }
+    i18nPlugin.clearLangs = function (key) {
+      key instanceof Array || (key = [key])
+      key.map((item) => {
+        delete langsSet[item]
+      })
+      this.setLangs({locale})
+      return true
+    }
+    i18nPlugin.db = langsSet[locale]
+    Vue.prototype.$i18n = i18nPlugin
   }
 }
 

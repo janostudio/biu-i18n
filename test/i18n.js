@@ -46,7 +46,7 @@ describe('biu-i18n', () => {
   })
   // it is sync function
   it('en test', () => {
-    vm.$resetLangs({
+    vm.$i18n.setLangs({
       en: {
         first: '1',
         second: '2',
@@ -61,9 +61,36 @@ describe('biu-i18n', () => {
     expect(vm.$i18n([{content: 'paramth', params: ['second']}], true)).toBe('2th')
   })
   it('pattern test', () => {
-    vm.$resetLangs({
+    vm.$i18n.setLangs({
       pattern: '{:pattern}'
     })
+  })
+  it('hasLangs test', () => {
+    expect(vm.$i18n.hasLangs('cn-ZH')).toBe(true)
+  })
+  it('auto update test', () => {
+    window.vm = vm
+    vm.$i18n.setLangs({
+      locale: 'ja'
+    })
+  })
+  it('db test', () => {
+    vm.$i18n.setLangs({
+      locale: 'cn-ZH'
+    })
+    expect(vm.$i18n.db.first).toBe('一')
+    vm.$i18n.setLangs({
+      locale: 'en'
+    })
+    expect(vm.$i18n.db.first).toBe('1')
+  })
+  it('clear test', () => {
+    vm.$i18n.clearLangs('en')
+    expect(vm.$i18n('first')).toBe('first')
+    expect(vm.$i18n.db.first).toBe(undefined)
+  })
+  xit('other Usage', () => {
+    new Vue({ i18n }).$mount('#app')
   })
   xit('version test', () => {
     Vue.version = '1.0.0'

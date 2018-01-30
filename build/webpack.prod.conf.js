@@ -2,10 +2,13 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: "./src/i18n", 
+  entry: "./src/i18n.js", 
   output: {
     path: path.resolve(__dirname, "../dist"), 
-    filename: "biu-i18n.min.js"
+    filename: "biu-i18n.min.js",
+    library: ['biu-i18n'],
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['.js']
@@ -15,15 +18,23 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [path.join(__dirname, '..', 'src'), path.join(__dirname, '..', 'src')]
+        exclude: /node_modules/
       }
     ]
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false
       }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
     })
   ]
 }

@@ -2,10 +2,13 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: "./src/i18n", 
+  entry: "./src/i18n.js", 
   output: {
     path: path.resolve(__dirname, "../dist"), 
-    filename: "biu-i18n.js"
+    filename: "biu-i18n.js",
+    library: ['biu-i18n'],
+    libraryTarget: 'umd',
+    umdNamedDefine: true
   },
   resolve: {
     extensions: ['.js']
@@ -15,7 +18,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [path.join(__dirname, '..', 'src'), path.join(__dirname, '..', 'src')]
+        exclude: /node_modules/
       }
     ]
   }

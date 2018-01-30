@@ -1,5 +1,8 @@
 import Vue from 'vue'
 import bueI18n from '../src/i18n'
+// import bueI18n from '../dist/biu-i18n.js'
+// import bueI18n from '../dist/biu-i18n.min.js'
+
 const options = {
   'cn-ZH': {
     first: '一',

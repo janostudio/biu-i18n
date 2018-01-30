@@ -1,4 +1,14 @@
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define("biu-i18n", [], factory);
+	else if(typeof exports === 'object')
+		exports["biu-i18n"] = factory();
+	else
+		root["biu-i18n"] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -176,3 +186,4 @@ exports.default = {
 
 /***/ })
 /******/ ]);
+});

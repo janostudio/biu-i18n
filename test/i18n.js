@@ -44,7 +44,7 @@ describe('biu-i18n', () => {
     expect(vm.$i18n({content: 'paramth', params: ['first']})).toBe('第一')
     expect(vm.$i18n({content: 'third', params: ['first']})).toBe('third')
     expect(vm.$i18n({nocontent: 'paramth', params: ['first']})).toBe('')
-    expect(vm.$i18n({content: 'morepattern', params: ['first']})).toBe('一个NONE个')
+    expect(vm.$i18n({content: 'morepattern', params: ['first']})).toBe('一个个')
     expect(vm.$i18n([{content: 'paramth', params: ['second']}, {content: 'paramth', params: ['third']}], true)).toBe('第二，第third')
   })
   // it is sync function

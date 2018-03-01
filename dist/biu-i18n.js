@@ -117,8 +117,7 @@ exports.default = {
             if (originLangs[i].params[num - 1]) {
               lang = langs[originLangs[i].params[num - 1]] ? langs[originLangs[i].params[num - 1]] : originLangs[i].params[num - 1];
             } else {
-              lang = 'NONE';
-              console.warn('The amount of pattern in content is more than params\'s length.');
+              lang = '';
             }
             return lang;
           });
